@@ -3,11 +3,20 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-    const { signInWithGoogle, signInWithGithub, signInWithFacebook, user } =
-        useAuth();
+    const {
+        user,
+        setEmail,
+        setPassword,
+        signInWithGoogle,
+        signInWithGithub,
+        signInWithFacebook,
+        signInWithEmail_Password,
+    } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirect_uri = location.state?.from || "/";
+
+    // event handlers
     const handleSignIn = (provider) => {
         provider()
             .then((res) => {
@@ -18,17 +27,38 @@ const Login = () => {
                 console.log(err.message);
             });
     };
+    /* const handleSetEmail = (e) => {
+        setEmail(e.target.value);
+    };
+    const handleSetPassword = (e) => {
+        setPassword(e.target.value);
+    }; */
+    const handleStateChangeOnInput = (e, setState) => {
+        setState(e.target.value);
+    };
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        handleSignIn(signInWithEmail_Password);
+    };
 
     useEffect(() => {
-        user.displayName && history.push(redirect_uri);
+        user.accessToken && history.push(redirect_uri);
     }, [user, history, redirect_uri]);
 
     return (
         <div className="App">
-            <form>
-                <input type="email" />
+            <form onSubmit={handleFormSubmit}>
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                    onChange={(e) => handleStateChangeOnInput(e, setEmail)}
+                />
                 <br />
-                <input type="password" />
+                <input
+                    type="password"
+                    placeholder="Enter your password"
+                    onChange={(e) => handleStateChangeOnInput(e, setPassword)}
+                />
                 <br />
                 <input type="submit" value="Login" />
             </form>
