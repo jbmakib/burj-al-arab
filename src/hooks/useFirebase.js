@@ -4,6 +4,7 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     onAuthStateChanged,
+    signOut,
 } from "firebase/auth";
 import initializeAuthentication from "../Firebase/firebase.init";
 
@@ -20,6 +21,17 @@ const useFirebase = () => {
         return signInWithPopup(auth, googleProvider);
     };
 
+    // for logout
+    const logout = () => {
+        signOut(auth)
+            .then(() => {
+                setUser({});
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    };
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
             setUser(user);
@@ -29,6 +41,7 @@ const useFirebase = () => {
     return {
         user,
         signInWithGoogle,
+        logout,
     };
 };
 
