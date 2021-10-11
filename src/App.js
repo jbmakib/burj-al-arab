@@ -7,6 +7,8 @@ import Book from "./components/Book/Book";
 import Header from "./components/Header/Header";
 import AuthProvider from "./context/AuthProvider";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Profile from "./components/Profile/Profile";
+import Register from "./components/Register/Register";
 
 function App() {
     return (
@@ -23,11 +25,17 @@ function App() {
                     <Route path="/login">
                         <Login />
                     </Route>
+                    <Route path="/register">
+                        <Register />
+                    </Route>
                     <PrivateRoute exact path="/book">
                         <Book />
                     </PrivateRoute>
                     <PrivateRoute path="/book/:bedType">
                         <Book />
+                    </PrivateRoute>
+                    <PrivateRoute path="/profile">
+                        <Profile />
                     </PrivateRoute>
                 </Switch>
             </Router>
