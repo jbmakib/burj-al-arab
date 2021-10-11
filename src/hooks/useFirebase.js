@@ -3,9 +3,10 @@ import {
     getAuth,
     signInWithPopup,
     GoogleAuthProvider,
+    GithubAuthProvider,
+    FacebookAuthProvider,
     onAuthStateChanged,
     signOut,
-    GithubAuthProvider,
 } from "firebase/auth";
 import initializeAuthentication from "../Firebase/firebase.init";
 
@@ -18,6 +19,7 @@ const useFirebase = () => {
     // get all provider
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
 
     // get all function to sign in with provider
     const signInWithGoogle = () => {
@@ -25,6 +27,9 @@ const useFirebase = () => {
     };
     const signInWithGithub = () => {
         return signInWithPopup(auth, githubProvider);
+    };
+    const signInWithFacebook = () => {
+        return signInWithPopup(auth, facebookProvider);
     };
 
     // for logout
@@ -53,6 +58,7 @@ const useFirebase = () => {
         user,
         signInWithGoogle,
         signInWithGithub,
+        signInWithFacebook,
         logout,
     };
 };

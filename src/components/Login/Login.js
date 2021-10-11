@@ -3,7 +3,8 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-    const { signInWithGoogle, signInWithGithub, user } = useAuth();
+    const { signInWithGoogle, signInWithGithub, signInWithFacebook, user } =
+        useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirect_uri = location.state?.from || "/";
@@ -42,6 +43,10 @@ const Login = () => {
                 <br />
                 <button onClick={() => handleSignIn(signInWithGithub)}>
                     Github Sign In
+                </button>
+                <br />
+                <button onClick={() => handleSignIn(signInWithFacebook)}>
+                    Facebook Sign In
                 </button>
             </div>
         </div>
