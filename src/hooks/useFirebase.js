@@ -6,6 +6,8 @@ import {
     GithubAuthProvider,
     FacebookAuthProvider,
     signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    updateProfile,
     onAuthStateChanged,
     signOut,
 } from "firebase/auth";
@@ -18,6 +20,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userProfile, setUserProfile] = useState({});
 
     // get all provider
     const googleProvider = new GoogleAuthProvider();
@@ -35,9 +38,19 @@ const useFirebase = () => {
         return signInWithPopup(auth, facebookProvider);
     };
 
-    // create user with email and password
+    // login user with email and password
     const signInWithEmail_Password = () => {
         return signInWithEmailAndPassword(auth, email, password);
+    };
+
+    // create user with email and password
+    const signUpWithEmail_Password = () => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+
+    // update user profile
+    const updateUserProfile = () => {
+        updateProfile(auth.currentUser, userProfile);
     };
 
     // for logout
@@ -66,10 +79,13 @@ const useFirebase = () => {
         user,
         setEmail,
         setPassword,
+        setUserProfile,
         signInWithGoogle,
         signInWithGithub,
         signInWithFacebook,
         signInWithEmail_Password,
+        signUpWithEmail_Password,
+        updateUserProfile,
         logout,
     };
 };
