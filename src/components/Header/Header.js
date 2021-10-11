@@ -28,11 +28,15 @@ const Header = () => {
                         </Link>
                     </li>
                     <li>
-                        {user.displayName ? (
-                            <>
-                                <span>{user.displayName} </span>
-                                <button onClick={logout}>Logout</button>
-                            </>
+                        {user.accessToken ? (
+                            user.displayName ? (
+                                <>
+                                    <span>{user.displayName} </span>
+                                    <button onClick={logout}>Logout</button>
+                                </>
+                            ) : (
+                                <Link to="/profile">Update Profile</Link>
+                            )
                         ) : (
                             <Link to="/login">Login</Link>
                         )}
