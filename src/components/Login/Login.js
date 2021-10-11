@@ -27,12 +27,6 @@ const Login = () => {
                 console.log(err.message);
             });
     };
-    /* const handleSetEmail = (e) => {
-        setEmail(e.target.value);
-    };
-    const handleSetPassword = (e) => {
-        setPassword(e.target.value);
-    }; */
     const handleStateChangeOnInput = (e, setState) => {
         setState(e.target.value);
     };
